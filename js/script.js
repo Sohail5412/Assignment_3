@@ -29,3 +29,18 @@ function getData() {
     })
     .catch((error) => console.error("Error fetching data:", error));
 }
+
+function getAQI(cityName) {
+    const aqiApiToken = "e1d49d5a75db842660ef882de092a0eff29a199e";
+    const URL = `https://api.waqi.info/feed/${cityName}/?token=${aqiApiToken}`;
+  
+    // Guide used -> https://aqicn.org/json-api/doc/
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const aqiOutput = document.getElementById("aqi-output");
+        aqiOutput.innerHTML = `<p>Air Quality Index (AQI) for ${cityName}: ${data.data.aqi}</p>`;
+      })
+      .catch((error) => console.error("Error fetching AQI data:", error));
+  }
